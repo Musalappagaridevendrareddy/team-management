@@ -226,6 +226,18 @@ def main():
             st.session_state.team = None
             st.session_state.role = None
             st.sidebar.success("Logged out successfully")
+        elif st.sidebar.button("Delete Account"):
+            users = load_user_data()
+            users = users[users['username'] != st.session_state.username]
+            save_user_data(users)
+            availability = read_availability()
+            availability = availability[availability['Name'] != st.session_state.username]
+            availability.to_csv('availability.csv', index=False)
+            st.session_state.logged_in = False
+            st.session_state.username = None
+            st.session_state.team = None
+            st.session_state.role = None
+            st.sidebar.success("Account deleted successfully")
         else:
             if st.session_state.role == 'Manager':
                 admin_dashboard()

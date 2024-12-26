@@ -18,6 +18,8 @@ def load_team_data():
     if os.path.exists(USER_DATA_FILE):
         df = pd.read_csv(USER_DATA_FILE)
         return df[df['role'] == 'Manager']
+    else:
+        return pd.DataFrame(columns=['username', 'password', 'role', 'team'])
 
 # Save user data to CSV file
 def save_user_data(users):
@@ -147,7 +149,6 @@ def read_availability():
 # Function to display user dashboard
 def user_dashboard():
     st.title("User Dashboard")
-    st.write(f"Welcome {st.session_state.username}")
     set_availability()
 
 def disp_notifications(availability):
@@ -293,8 +294,14 @@ def main():
         st.write("----")
         st.write("----")
 
-        # availability = availability[(availability['Team'] == team)]
-        # st.bar_chart(working, x='Name')
+  
+    st.sidebar.title("Developer Profile")
+    st.sidebar.info("""
+        **Name:** Devendar Reddy M \n
+        **GitHub:** [github.com/Devendar](https://github.com/Musalappagaridevendrareddy) \n
+        **LinkedIn:** [linkedin.com/in/Devendar](https://www.linkedin.com/in/musalappagari-devendrareddy-drbu/) \n
+        **Email:** devsobhaeswar143@gmail.com
+    """)
 
 if __name__ == "__main__":
     main()
